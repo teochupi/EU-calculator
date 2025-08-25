@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подготовка за Еврото: Всичко, което трябва да знаете</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #003399;
+            --gold: #FFD700;
+            --light-blue: #E6F2FF;
+            --dark-blue: #001A66;
+            --success-green: #28a745;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            color: white;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .euro-icon {
+            font-size: 4rem;
+            color: var(--gold);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .countdown-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin: 20px 0;
+            transition: transform 0.3s ease;
+        }
+
+        .countdown-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .countdown-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            display: block;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .calculator-demo {
+            background: linear-gradient(135deg, var(--light-blue) 0%, white 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .demo-input {
+            border: 2px solid var(--primary-blue);
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .demo-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0,51,153,0.2);
+        }
+
+        .conversion-result {
+            background: var(--primary-blue);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .conversion-result.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--gold) 0%, #FFA500 100%);
+            color: var(--dark-blue);
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(255,215,0,0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,215,0,0.4);
+            color: var(--dark-blue);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-blue);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -6px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            background: var(--gold);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--primary-blue);
+        }
+
+        .floating-euro {
+            position: fixed;
+            font-size: 2rem;
+            color: var(--gold);
+            opacity: 0.1;
+            animation: float-around 20s infinite ease-in-out;
+            z-index: -1;
+        }
+
+        @keyframes float-around {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(100px, -50px) rotate(90deg); }
+            50% { transform: translate(-50px, -100px) rotate(180deg); }
+            75% { transform: translate(-100px, 50px) rotate(270deg); }
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--light-blue);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-answer.show {
+            padding: 0 20px 20px;
+            max-height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Euro Symbols -->
+    <div class="floating-euro" style="top: 10%; left: 5%;">€</div>
+    <div class="floating-euro" style="top: 70%; right: 10%; animation-delay: 5s;">€</div>
+    <div class="floating-euro" style="bottom: 20%; left: 15%; animation-delay: 10s;">€</div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center position-relative">
+            <i class="fas fa-euro-sign euro-icon mb-4"></i>
+            <h1 class="display-3 fw-bold mb-4">България приема Еврото!</h1>
+            <p class="lead mb-5">Официалното преминаване от лев към евро започва на 1 януари 2026 г.</p>
+            <div class="row justify-content-center">
+                <div class="col-md-3 col-6">
+                    <div class="countdown-card">
+                        <span class="countdown-number" id="days">0</span>
+                        <small>ДНИ</small>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="countdown-card">
+                        <span class="countdown-number" id="hours">0</span>
+                        <small>ЧАСА</small>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="countdown-card">
+                        <span class="countdown-number" id="minutes">0</span>
+                        <small>МИНУТИ</small>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="countdown-card">
+                        <span class="countdown-number" id="seconds">0</span>
+                        <small>СЕКУНДИ</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Introduction -->
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6">
+                <h2 class="mb-4">Защо е важна тази промяна?</h2>
+                <p class="lead">Влизането на България в Еврозоната е исторически момент, който ще промени начина, по който извършваме финансови операции. От 1 януари 2026 г., официалната валута на страната ни ще бъде еврото.</p>
+                <p>Това означава, че всички цени, заплати, сметки и финансови документи ще се изразяват в евро. За да улесним прехода, създадохме специален Евро калкулатор.</p>
+            </div>
+            <div class="col-lg-6">
+                <div class="info-card">
+                    <i class="fas fa-calculator feature-icon"></i>
+                    <h4>Евро Калкулатор</h4>
+                    <p>Бърз и лесен начин за конвертиране между левове и евро според фиксирания курс.</p>
+                    <div class="mt-3">
+                        <strong>Фиксиран курс:</strong><br>
+                        <span class="fs-3">1 EUR = 1.95583 BGN</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculator Demo -->
+        <div class="calculator-demo">
+            <h2 class="text-center mb-4">Опитайте калкулатора веднага!</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Сума в левове (BGN)</label>
+                            <input type="number" class="form-control demo-input" id="bgnInput" placeholder="Въведете сума">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Сума в евро (EUR)</label>
+                            <input type="number" class="form-control demo-input" id="eurInput" placeholder="Въведете сума">
+                        </div>
+                    </div>
+                    <div class="conversion-result" id="conversionResult">
+                        <i class="fas fa-exchange-alt me-2"></i>
+                        <span id="resultText"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="row my-5">
+            <div class="col-md-4 mb-4">
+                <div class="info-card text-center h-100">
+                    <i class="fas fa-bolt feature-icon"></i>
+                    <h4>Бърза конверсия</h4>
+                    <p>Мигновено преобразуване на суми между левове и евро с точност до стотинки.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="info-card text-center h-100">
+                    <i class="fas fa-mobile-alt feature-icon"></i>
+                    <h4>Мобилно съвместим</h4>
+                    <p>Работи перфектно на всички устройства - телефон, таблет или компютър.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="info-card text-center h-100">
+                    <i class="fas fa-history feature-icon"></i>
+                    <h4>История на конверсиите</h4>
+                    <p>Запазва последните ви конверсии за бърз достъп и сравнение.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="my-5">
+            <h2 class="text-center mb-5">Важни дати за прехода</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h5>Януари 2025</h5>
+                        <p>Начало на информационна кампания за подготовка на гражданите и бизнеса.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h5>Юли 2025</h5>
+                        <p>Двойно показване на цени в левове и евро в търговските обекти.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h5>1 Януари 2026</h5>
+                        <p><strong>Официално въвеждане на еврото</strong> - начална дата на Еврозоната за България.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h5>Януари-Март 2026</h5>
+                        <p>Период на паралелно обращение на левове и евро.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="my-5">
+            <h2 class="text-center mb-5">Често задавани въпроси</h2>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h5 class="mb-0 d-flex justify-content-between align-items-center">
+                        Какъв ще бъде фиксираният курс?
+                        <i class="fas fa-chevron-down"></i>
+                    </h5>
+                </div>
+                <div class="faq-answer">
+                    <p>Фиксираният курс ще бъде 1 EUR = 1.95583 BGN. Този курс е определен от Българската народна банка и Европейската централна банка.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h5 class="mb-0 d-flex justify-content-between align-items-center">
+                        Какво ще се случи със спестяванията ми?
+                        <i class="fas fa-chevron-down"></i>
+                    </h5>
+                </div>
+                <div class="faq-answer">
+                    <p>Всички спестявания в левове ще бъдат автоматично конвертирани в евро по фиксирания курс. Стойността на парите ви ще остане същата.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h5 class="mb-0 d-flex justify-content-between align-items-center">
+                        Колко време ще мога да разменям левове?
+                        <i class="fas fa-chevron-down"></i>
+                    </h5>
+                </div>
+                <div class="faq-answer">
+                    <p>Ще има преходен период от 3 месеца, през който можете да разменяте левове за евро без комисиона в банките и пощите.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="text-center my-5 py-5">
+            <h2 class="mb-4">Готови ли сте за еврото?</h2>
+            <p class="lead mb-4">Използвайте Евро калкулатора още днес, за да се подготвите за бъдещето!</p>
+            <a href="https://teochupi.github.io/euro_calculator/" class="cta-button" target="_blank">
+                <i class="fas fa-external-link-alt me-2"></i>
+                Отвори Евро Калкулатора
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">
+                © 2025 Подготовка за Еврото | Създадено с ❤️ за България от 
+                <a href="https://teodor-chupetlov.eu" target="_blank" class="text-warning text-decoration-none">teodor-chupetlov.eu</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const targetDate = new Date('2026-01-01T00:00:00');
+            const now = new Date();
+            const difference = targetDate - now;
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Calculator Demo
+        const bgnInput = document.getElementById('bgnInput');
+        const eurInput = document.getElementById('eurInput');
+        const conversionResult = document.getElementById('conversionResult');
+        const resultText = document.getElementById('resultText');
+        const exchangeRate = 1.95583;
+
+        function convertBGNtoEUR() {
+            const bgn = parseFloat(bgnInput.value);
+            if (!isNaN(bgn)) {
+                const eur = (bgn / exchangeRate).toFixed(2);
+                resultText.textContent = `${bgn.toFixed(2)} BGN = ${eur} EUR`;
+                conversionResult.classList.add('show');
+                eurInput.value = '';
+            }
+        }
+
+        function convertEURtoBGN() {
+            const eur = parseFloat(eurInput.value);
+            if (!isNaN(eur)) {
+                const bgn = (eur * exchangeRate).toFixed(2);
+                resultText.textContent = `${eur.toFixed(2)} EUR = ${bgn} BGN`;
+                conversionResult.classList.add('show');
+                bgnInput.value = '';
+            }
+        }
+
+        bgnInput.addEventListener('input', function() {
+            if (this.value) {
+                convertBGNtoEUR();
+            } else {
+                conversionResult.classList.remove('show');
+            }
+        });
+
+        eurInput.addEventListener('input', function() {
+            if (this.value) {
+                convertEURtoBGN();
+            } else {
+                conversionResult.classList.remove('show');
+            }
+        });
+
+        // FAQ Toggle
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('i');
+            
+            answer.classList.toggle('show');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
